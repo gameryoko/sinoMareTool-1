@@ -37,11 +37,32 @@
 		// anguler method
 		// ------------------------------
 
+		// pattern method
+
+		// change pattern
+                $scope.changePattern = function(index){
+			$scope.selectedPattern = index;
+			for(let key in $scope.patternList){
+                        	$scope.patternList[key]["selected"] = (index == key);
+                        }
+			localStrageInit();
+                };
+
+		$scope.setPattern = function(index) {
+                        return {
+                                'nm-button': true,
+				'nm-button-selected': $scope.patternList[index].selected
+                        };
+                };
+
+		// nightmares method
+
+		// reset nightmare
 		$scope.resetNightmare = function(){
 			$scope.selectList = [];
 			$scope.selectedNightmare = [];
-			localStorage.setItem("nightmare", "");
-                        localStorage.setItem("selected", "");
+			localStorage.setItem("nightmare"+$scope.selectedPattern, "");
+                        localStorage.setItem("selected"+$scope.selectedPattern, "");
 		};
 
 		// add nightmare
@@ -49,10 +70,17 @@
 			$scope.selectList.push({});
 		};
 
+		// change nightmare (selected event)
 		$scope.changeNightmare = function(index){
-			$scope.selectList[index] = nightmareParams[this.selectedNightmare[index]["id"]];
-			localStorage.setItem("nightmare", JSON.stringify($scope.selectList));
-			localStorage.setItem("selected", JSON.stringify($scope.selectedNightmare));
+			let params = nightmareParams[this.selectedNightmare[index]["id"]];
+			$scope.selectList[index] = {
+				name:params["name"],
+				provision:params["provision"],
+				effect:params["effect"],
+				type:params["type"],
+			};
+			localStorage.setItem("nightmare"+$scope.selectedPattern, JSON.stringify($scope.selectList));
+			localStorage.setItem("selected"+$scope.selectedPattern, JSON.stringify($scope.selectedNightmare));
 		};
 
 		$scope.setEffect = function(type) {
@@ -73,20 +101,35 @@
                         };
                 };
 
+		// load local strage data
+		let localStrageInit = function(){
+			let selectList = localStorage.getItem("nightmare"+$scope.selectedPattern);
+                        $scope.selectList = (selectList == "" || selectList == null)?[]:JSON.parse(selectList);
+
+                        let selected = localStorage.getItem("selected"+$scope.selectedPattern);
+                        $scope.selectedNightmare = (selected == "" || selected == null)?[]:JSON.parse(selected);
+			
+		};
+
 		// init
 		(function(){
+			$scope.patternList = [];
+			for(let i = 0 ; i < 6 ; i++){
+				$scope.patternList.push({
+					name:"パターン"+(i+1),
+					selected:(i==0)
+				});
+			}
+			$scope.selectedPattern = 0;
+
 			$scope.nightmares = nightmares;
 
 			$scope.timeList = [];
 			for(let i = 0 ; i < 20 ; i++){
 				$scope.timeList.push((20-i)+':00');
 			}
-
-			let selectList = localStorage.getItem("nightmare");
-			$scope.selectList = (selectList == "" || selectList == null)?[]:JSON.parse(selectList);
 			
-			let selected = localStorage.getItem("selected");
-			$scope.selectedNightmare = (selected == "" || selected == null)?[]:JSON.parse(selected);
+			localStrageInit();
 
 		}());
         }]);

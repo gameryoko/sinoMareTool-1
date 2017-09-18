@@ -159,6 +159,11 @@ select{
 
 /* gauge color */
 .gauge-provision-fire{
+	box-sizing:border-box;
+	border-top:5px solid #FA5858;
+        border-left:5px solid #F78181;
+	border-right:5px solid #8A0808;
+	border-bottom:5px solid #FA5858;
 	background-color:#F78181;
 	color:#222222;
 }
@@ -168,6 +173,11 @@ select{
 }
 
 .gauge-provision-water{
+	box-sizing:border-box;
+        border-top:5px solid #2E2EFE;
+        border-left:5px solid #5858FA;
+        border-right:5px solid #0000FF;
+        border-bottom:5px solid #2E2EFE;
         background-color:#8181F7;
         color:#222222;
 }
@@ -177,6 +187,11 @@ select{
 }
 
 .gauge-provision-wind{
+        box-sizing:border-box;
+        border-top:5px solid #2EFE2E;
+        border-left:5px solid #58FA58;
+        border-right:5px solid #00FF00;
+        border-bottom:5px solid #2EFE2E;
         background-color:#81F781;
         color:#222222;
 }
@@ -202,4 +217,8 @@ select{
 	border:1px solid #000000;
 	display:inline-block;
 	margin:10px;
+}
+
+.nm-button-selected{
+        background-color:#eeeeee;
 }

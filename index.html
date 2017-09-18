@@ -10,15 +10,18 @@
 	<script type="text/javascript" src="js/topController.js"></script>
 </head>
 <body ng-app="app">
-<div ng-controller="top">
-<summary>使用ナイトメア</summary> 
-<div class="nm-button" ng-click="addNightmare()">追加</div>
-<div class="nm-button" ng-click="resetNightmare()">クリア</div>
-<div class="sb" ng-repeat="item in selectList">{{$index + 1}}
-	<select ng-model="selectedNightmare[$index]" ng-options="nightmare as nightmare.name for nightmare in nightmares" ng-change="changeNightmare($index)"></select>
-</div>
-
-<div class="boxContainer">
+	<div ng-controller="top">
+		<div class="" style="width30%;float:left;">
+			<summary>パターン</summary>
+                        <div ng-class="setPattern($index)" ng-repeat="item in patternList" ng-click="changePattern($index)">{{item.name}}</div>
+			<summary>使用ナイトメア</summary> 
+			<div class="nm-button" ng-click="addNightmare()">追加</div>
+			<div class="nm-button" ng-click="resetNightmare()">クリア</div>
+			<div class="sb" ng-repeat="item in selectList">{{$index + 1}}
+				<select ng-model="selectedNightmare[$index]" ng-options="nightmare as nightmare.name for nightmare in nightmares" ng-change="changeNightmare($index)"></select>
+			</div>
+		</div>
+<div class="boxContainer" style="width:65%;float:lett;">
 	<div class="box_nm">
 		<div>ナイトメア</div>
 		<span ng-repeat="item in selectList">
